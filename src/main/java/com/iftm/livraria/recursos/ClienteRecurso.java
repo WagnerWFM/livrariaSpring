@@ -21,7 +21,7 @@ import com.nelioalves.filmes.servico.ArtistaServico;
 public class ClienteRecurso {
 
 	@Autowired
-	private ArtistaServico as;
+	private ClienteServico as;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Artista>> todos() {
