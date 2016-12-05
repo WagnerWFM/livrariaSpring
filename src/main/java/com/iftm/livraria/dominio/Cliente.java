@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_clientes")
 public class Cliente implements Serializable {
@@ -23,12 +26,15 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer codCliente;
 	private String nome, cpf, fone, email;
-	private Date nascimento;
 	private BigDecimal rendaMensal;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date nascimento;
 	
 	// Relationship Variables
 	@OneToMany(mappedBy="cliente")
-	private List<Emprestimo>emprestimos;
+	@JsonIgnore
+	private List<Emprestimo> emprestimos;
 	
 	Cliente()
 	{

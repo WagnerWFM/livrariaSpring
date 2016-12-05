@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="tb_emprestimos")
@@ -25,14 +28,19 @@ public class Emprestimo implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer codEmprestimo;
-	private Date dataEmprestimo;
 	private Integer duracaoEmDias;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date dataEmprestimo;
 	
 	// Relationship Variables
 	@ManyToOne
 	@JoinColumn(name="cliente")
+	@JsonIgnore
 	private Cliente cliente;
+	
 	@OneToMany(mappedBy="emprestimo")
+	@JsonIgnore
 	private List<ItemEmprestimo> itens;
 	
 	public Emprestimo()

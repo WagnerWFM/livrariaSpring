@@ -13,45 +13,45 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.nelioalves.filmes.dominio.Artista;
-import com.nelioalves.filmes.servico.ArtistaServico;
+import com.iftm.livraria.dominio.Cliente;
+import com.iftm.livraria.servico.ClienteServico;
 
 @RestController
-@RequestMapping("/artistas")
+@RequestMapping("/clientes")
 public class ClienteRecurso {
 
 	@Autowired
-	private ClienteServico as;
+	private ClienteServico cs;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Artista>> todos() {
-		List<Artista> lista = as.buscarTodosOrdenadosPorNome();
+	public ResponseEntity<List<Cliente>> todos() {
+		List<Cliente> lista = cs.buscarTodosOrdenadosPorNome();
 		return ResponseEntity.status(HttpStatus.OK).body(lista);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
-		Artista art = as.buscar(id);
-		return ResponseEntity.status(HttpStatus.OK).body(art);
+		Cliente cli = cs.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(cli);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> criar(@RequestBody Artista artista) {
-		artista = as.inserir(artista);
-		URI uri = getUri("/{id}", artista.getCodArtista());
+	public ResponseEntity<Void> criar(@RequestBody Cliente cliente) {
+		cliente = cs.inserir(cliente);
+		URI uri = getUri("/{id}", cliente.getCodCliente());
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Integer id) {
-		as.excluir(id);
+		cs.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Artista artista, @PathVariable("id") Integer id) {
-		artista.setCodArtista(id);
-		artista = as.atualizar(artista);
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)	// atualizar
+	public ResponseEntity<Void> atualizar(@RequestBody Cliente cliente, @PathVariable("id") Integer id) {
+		cliente.setCodCliente(id);
+		cliente = cs.atualizar(cliente);
 		return ResponseEntity.noContent().build();
 	}
 	

@@ -1,46 +1,52 @@
 package com.iftm.livraria.recursos;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import dominio.Categoria;
-import dominio.Cliente;
-import dominio.Editora;
-import dominio.Emprestimo;
-import dominio.ItemEmprestimo;
-import dominio.Livro;
-import servico.CategoriaServico;
-import servico.ClienteServico;
-import servico.EditoraServico;
-import servico.EmprestimoServico;
-import servico.ItemEmprestimoServico;
-import servico.LivroServico;
-import servico.ServicoException;
+import com.iftm.livraria.dominio.Categoria;
+import com.iftm.livraria.dominio.Cliente;
+import com.iftm.livraria.dominio.Editora;
+import com.iftm.livraria.dominio.Emprestimo;
+import com.iftm.livraria.dominio.ItemEmprestimo;
+import com.iftm.livraria.dominio.Livro;
+import com.iftm.livraria.repositorio.CategoriaRepositorio;
+import com.iftm.livraria.repositorio.ClienteRepositorio;
+import com.iftm.livraria.repositorio.EditoraRepositorio;
+import com.iftm.livraria.repositorio.EmprestimoRepositorio;
+import com.iftm.livraria.repositorio.ItemEmprestimoRepositorio;
+import com.iftm.livraria.repositorio.LivroRepositorio;
 
+@RestController
+@RequestMapping("/instanciacao")
+public class Instanciacao {
 
-/**
- * Servlet implementation class Instanciacao
- */
-@WebServlet("/Instanciacao")
-public class Instanciacao extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+	@Autowired
+	private ClienteRepositorio clienteRepo;
+	
+	@Autowired
+	private CategoriaRepositorio categoriaRepo;
+	
+	@Autowired
+	private EditoraRepositorio editoraRepo;
+	
+	@Autowired
+	private EmprestimoRepositorio emprestimoRepo;
+	
+	@Autowired
+	private ItemEmprestimoRepositorio itemEmpestimoRepo;
+	
+	@Autowired
+	private LivroRepositorio livroRepo;
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String executar() {
 		try {
-			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			
 			Cliente c1 = new Cliente(null, "Guilherme Ferreira", "09243891685", "34-3235-8893", "guilherme.oliveira@gmail.com", sdf.parse("04/08/1989"), new BigDecimal("200000.00"));
@@ -83,74 +89,50 @@ public class Instanciacao extends HttpServlet {
 			ItemEmprestimo im9 = new ItemEmprestimo(null, 10, l10, em5);
 			ItemEmprestimo im10 = new ItemEmprestimo(null, 10, l9, em5);
 			
-			// Insere cliente
-			ClienteServico cs = new ClienteServico();
-			cs.inserir(c1);
-			cs.inserir(c2);
-			cs.inserir(c3);
+			clienteRepo.save(c1);
+			clienteRepo.save(c2);
+			clienteRepo.save(c3);
 			
-			// Insere editora
-			EditoraServico es = new EditoraServico();
-			es.inserir(e1);
-			es.inserir(e2);
-			es.inserir(e3);
+			editoraRepo.save(e1);
+			editoraRepo.save(e2);
+			editoraRepo.save(e3);
 			
-			es.Atualizar(e3);
-			es.Atualizar(e1);
-			es.Atualizar(e2);
+			categoriaRepo.save(ct1);
+			categoriaRepo.save(ct2);
+			categoriaRepo.save(ct3);
 			
-			// Insere categoria
-			CategoriaServico cts = new CategoriaServico();
-			cts.inserir(ct1);
-			cts.inserir(ct2);
-			cts.inserir(ct3);
+			livroRepo.save(l1);
+			livroRepo.save(l2);
+			livroRepo.save(l3);
+			livroRepo.save(l4);
+			livroRepo.save(l5);
+			livroRepo.save(l6);
+			livroRepo.save(l7);
+			livroRepo.save(l8);
+			livroRepo.save(l9);
+			livroRepo.save(l10);
 			
-			cts.Atualizar(ct3);
-			cts.Atualizar(ct1);
-			cts.Atualizar(ct2);
+			emprestimoRepo.save(em1);
+			emprestimoRepo.save(em2);
+			emprestimoRepo.save(em3);
+			emprestimoRepo.save(em4);
+			emprestimoRepo.save(em5);
 			
-			// Insere livro
-			LivroServico ls = new LivroServico();
-			ls.inserir(l1);
-			ls.inserir(l2);
-			ls.inserir(l3);
-			ls.inserir(l4);
-			ls.inserir(l5);
-			ls.inserir(l6);
-			ls.inserir(l7);
-			ls.inserir(l8);
-			ls.inserir(l9);
-			ls.inserir(l10);
+			itemEmpestimoRepo.save(im1);
+			itemEmpestimoRepo.save(im2);
+			itemEmpestimoRepo.save(im3);
+			itemEmpestimoRepo.save(im4);
+			itemEmpestimoRepo.save(im5);
+			itemEmpestimoRepo.save(im6);
+			itemEmpestimoRepo.save(im7);
+			itemEmpestimoRepo.save(im8);
+			itemEmpestimoRepo.save(im9);
+			itemEmpestimoRepo.save(im10);
 			
-			// Insere emprestimo
-			EmprestimoServico eps = new EmprestimoServico();
-			eps.inserirAtualizar(em1);
-			eps.inserirAtualizar(em2);
-			eps.inserirAtualizar(em3);
-			eps.inserirAtualizar(em4);
-			eps.inserirAtualizar(em5);
-			
-			// Insere item do emprestimo
-			ItemEmprestimoServico ies = new ItemEmprestimoServico();
-			ies.inserirAtualizar(im1);
-			ies.inserirAtualizar(im2);
-			ies.inserirAtualizar(im3);
-			ies.inserirAtualizar(im4);
-			ies.inserirAtualizar(im5);
-			ies.inserirAtualizar(im6);
-			ies.inserirAtualizar(im7);
-			ies.inserirAtualizar(im8);
-			ies.inserirAtualizar(im9);
-			ies.inserirAtualizar(im10);
-
-			response.getWriter().append("<br>Fim");
 		}
 		catch (ParseException e) {
-			System.out.println("Erro: " + e.getMessage());
+			return e.getMessage();
 		}
-		catch (ServicoException e) {
-			response.getWriter().append("Erro! " + e.getMessage());
-		}
+		return "Pronto!";
 	}
-
 }

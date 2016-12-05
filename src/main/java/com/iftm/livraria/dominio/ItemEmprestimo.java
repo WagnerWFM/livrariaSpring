@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_itensemprestimo")
 public class ItemEmprestimo implements Serializable {
@@ -25,9 +27,12 @@ public class ItemEmprestimo implements Serializable {
 	// Relationship Variables
 	@ManyToOne
 	@JoinColumn(name="livro")
+	@JsonIgnore
 	private Livro livro;
+	
 	@ManyToOne
 	@JoinColumn(name="emprestimo")
+	@JsonIgnore
 	private Emprestimo emprestimo;
 	
 	public ItemEmprestimo(){}

@@ -80,6 +80,7 @@ public class ClienteServico {
 		repo.delete(cli);
 	}
 	
+	//métodos abaixo verificar se irá ser usado.
 	public Cliente buscar(int cod) {
 		Cliente cli = repo.findOne(cod);
 		if (cli == null) {
@@ -97,7 +98,6 @@ public class ClienteServico {
 		return cli;
 	}
 	
-	//métodos abaixo verificar se irá ser usado.
 	public List<Cliente> buscarTodosOrdenadosPorNome() {
 		return repo.buscarTodosOrdenadosPorNome();
 	}

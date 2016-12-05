@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_livros")
 public class Livro implements Serializable{
@@ -30,11 +32,16 @@ public class Livro implements Serializable{
 	// Relationship Variables
 	@ManyToOne
 	@JoinColumn(name="editora")
+	@JsonIgnore
 	private Editora editora;
+	
 	@ManyToOne
 	@JoinColumn(name="categoria")
+	@JsonIgnore
 	private Categoria categoria;
+	
 	@OneToMany(mappedBy="livro")
+	@JsonIgnore
 	private List<ItemEmprestimo> itens;
 	
 	public Livro()
