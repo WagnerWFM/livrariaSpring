@@ -22,7 +22,7 @@ public class ClienteServico {
 	public void validar(Cliente x) {
 		List<String> erros = new ArrayList<>();
 		
-		if (x.getNome()==null) {
+		if (x.getNome()==null || x.getNome().equals("")) {	//incluído verificação equals("")
 			erros.add("Favor preencher o campo nome");
 		}
 		if (x.getCpf()==null) {
